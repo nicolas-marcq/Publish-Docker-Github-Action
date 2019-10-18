@@ -62,16 +62,16 @@ Called /usr/local/bin/docker logout"
   [ "$output" = "$expected" ]
 }
 
-@test "it pushes tags to latest" {
-  export GITHUB_REF='refs/tags/myRelease'
+@test "it pushes git tags as it" {
+  export GITHUB_REF='refs/tags/5.0'
 
   run /entrypoint.sh
 
   local expected="
 Called /usr/local/bin/docker login -u USERNAME --password-stdin
-Called /usr/local/bin/docker build -t my/repository:latest .
-Called /usr/local/bin/docker push my/repository:latest
-::set-output name=tag::latest
+Called /usr/local/bin/docker build -t my/repository:5.0 .
+Called /usr/local/bin/docker push my/repository:5.0
+::set-output name=tag::5.0
 Called /usr/local/bin/docker logout"
   echo $output
   [ "$output" = "$expected" ]
